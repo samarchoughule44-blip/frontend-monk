@@ -55,27 +55,27 @@ const Home = () => {
   const categories = [
     {
       title: "Living Room",
-      images: ["/img1.jpg"],
+      images: ["/assets/Compress-images/livingroom2.jpg"],
     },
     {
       title: "Master Bedroom",
-      images: ["/img2.jpg"],
+      images: ["/assets/Compress-images/masterbedroom1.jpg"],
     },
     {
       title: "False Ceiling",
-      images: ["/img3.jpg"],
+      images: ["/assets/Compress-images/bedroom3.jpg"],
     },
     {
       title: "Dining Room",
-      images: ["/img4.jpg"],
+      images: ["/assets/Compress-images/diningarea.jpg"],
     },
     {
       title: "Kitchen",
-      images: ["/img5.jpg"],
+      images: ["/assets/Compress-images/kitchen1.jpg"],
     },
     {
       title: "Wardrobe",
-      images: ["/img6.jpg"],
+      images: ["/assets/wardrobe.jpg"],
     },
   ];
 
