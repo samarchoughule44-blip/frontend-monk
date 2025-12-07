@@ -36,6 +36,8 @@ import { Autoplay, Pagination, EffectFade } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -51,6 +53,51 @@ const Home = () => {
       return () => clearTimeout(timer);
     }
   }, []);
+
+   gsap.registerPlugin(ScrollTrigger);
+
+useEffect(() => {
+  gsap.registerPlugin(ScrollTrigger);
+
+  const animate = (targets, vars) => {
+    gsap.utils.toArray(targets).forEach((el) => {
+      if (el instanceof HTMLElement) {
+        gsap.from(el, {
+          opacity: 0,
+          y: 40,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+          },
+          ...vars,
+        });
+      }
+    });
+  };
+
+  // Headings — fade + lift
+  animate("h1, h2, h3", { y: 30 });
+
+  // Paragraphs — smooth fade
+  animate("p", { y: 20, duration: 0.8 });
+
+  // Images — zoom-in effect
+  animate("img", { scale: 0.95, duration: 1.2 });
+
+  // Cards (Why Choose Us, Testimonials, Projects)
+  animate(".card, .Card, .shadow-lg, .rounded-xl", {
+    y: 40,
+    duration: 1,
+  });
+
+  ScrollTrigger.refresh();
+}, []);
+
+
+
+
 
   const categories = [
     {
@@ -313,19 +360,19 @@ const Home = () => {
         </Swiper>
       </section>
       {/* contact form */}
-      <section className="py-16 bg-gray-300/40 bg-[url('/assets/bedroom.jpg')] bg-cover bg-center bg-no-repeat">
+      <section className=".reveal-stagger py-16 bg-gray-300/40 bg-[url('/assets/bedroom.jpg')] bg-cover bg-center bg-no-repeat">
         <div className="container mx-auto px-4 flex justify-between">
           <div className="max-w-2xl mx-auto backdrop-blur-sm bg-white/70 p-6 rounded-2xl">
-            <h2 className="text-2xl md:text-4xl font-bold text-center mb-4">
+            <h2 className="reveal text-2xl md:text-4xl font-bold text-center mb-4">
               Get Your Free Consultation
             </h2>
-            <p className="text-center text-muted-foreground mb-8 font-dm-sans">
+            <p className="reveal text-center text-muted-foreground mb-8 font-dm-sans">
               Fill out the form below and our design experts will get back to
               you within 24 hours
             </p>
 
             <Card>
-              <form className="space-y-6">
+              <form className="reveal space-y-6">
                 <div>
                   <input
                     type="text"
@@ -572,7 +619,7 @@ const Home = () => {
                 className="w-full h-full object-cover"
               />
               <span className="absolute  bottom-2 left-2 bg-gray-700/80 text-white text-xs px-3 py-1 rounded-md backdrop-blur flex sm:bottom-100">
-                Master Bedroom
+                False Ceiling
               </span>
             </div>
 
@@ -583,7 +630,7 @@ const Home = () => {
                 className="w-full h-full object-cover"
               />
               <span className="absolute  bottom-2 left-2 bg-gray-700/80 text-white text-xs px-3 py-1 rounded-md backdrop-blur flex sm:bottom-100">
-                Master Bedroom
+                Home Office
               </span>
             </div>
 
@@ -595,7 +642,7 @@ const Home = () => {
                 className="w-full h-full object-cover"
               />
               <span className="absolute  bottom-2 left-2 bg-gray-700/80 text-white text-xs px-3 py-1 rounded-md backdrop-blur flex sm:bottom-100">
-                Master Bedroom
+                Kitchen Designs
               </span>
             </div>
 
@@ -606,7 +653,7 @@ const Home = () => {
                 className="w-full h-full object-cover"
               />
               <span className="absolute  bottom-2 left-2 bg-gray-700/80 text-white text-xs px-3 py-1 rounded-md backdrop-blur flex sm:bottom-100">
-                Master Bedroom
+                Living Room
               </span>
             </div>
 
@@ -618,7 +665,7 @@ const Home = () => {
                 className="w-full h-full object-cover"
               />
               <span className="absolute  bottom-2 left-2 bg-gray-700/80 text-white text-xs px-3 py-1 rounded-md backdrop-blur flex sm:bottom-100">
-                Master Bedroom
+                Kids Room
               </span>
             </div>
 
@@ -629,7 +676,7 @@ const Home = () => {
                 className="w-full h-full object-cover"
               />
               <span className="absolute  bottom-2 left-2 bg-gray-700/80 text-white text-xs px-3 py-1 rounded-md backdrop-blur flex sm:bottom-100">
-                Master Bedroom
+                Wardrobe design
               </span>
             </div>
 
@@ -640,7 +687,7 @@ const Home = () => {
                 className="w-full h-full object-cover"
               />
               <span className="absolute  bottom-2 left-2 bg-gray-700/80 text-white text-xs px-3 py-1 rounded-md backdrop-blur flex sm:bottom-100">
-                Master Bedroom
+                Kids ROom
               </span>
             </div>
 
@@ -651,7 +698,7 @@ const Home = () => {
                 className="w-full h-full object-cover"
               />
               <span className="absolute  bottom-2 left-2 bg-gray-700/80 text-white text-xs px-3 py-1 rounded-md backdrop-blur flex sm:bottom-100">
-                Master Bedroom
+                Homes by MONKS
               </span>
             </div>
           </div>
@@ -907,34 +954,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Banner */}
-      <section className="relative py-20 bg-primary text-primary-foreground overflow-hidden">
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          src="/assets/video/video.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
-
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-[#0000]/75"></div>
-
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-4xl font-bold mb-4">
-            Ready to Transform Your Home?
-          </h2>
-          <p className="text-xl mb-8 opacity-95 max-w-2xl mx-auto">
-            Book a free consultation today and let's bring your vision to life
-          </p>
-
-          <Button asChild size="lg" variant="secondary">
-            <Link to="/contact">Get Started Now</Link>
-          </Button>
-        </div>
-      </section>
-
-      {/* Slideable Cards Section */}
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl md:text-4xl font-bold text-center mb-4">
@@ -968,6 +987,33 @@ const Home = () => {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* CTA Banner */}
+      <section className="relative py-20  bg-primary text-primary-foreground overflow-hidden">
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/assets/video/video.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-[#0000]/75"></div>
+
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h2 className="text-4xl font-bold mb-4">
+            Ready to Transform Your Home?
+          </h2>
+          <p className="text-xl mb-8 opacity-95 max-w-2xl mx-auto">
+            Book a free consultation today and let's bring your vision to life
+          </p>
+
+          <Button asChild size="lg" variant="secondary">
+            <Link to="/contact">Get Started Now</Link>
+          </Button>
         </div>
       </section>
 

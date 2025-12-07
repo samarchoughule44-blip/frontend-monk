@@ -2,7 +2,12 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { kitchenImage, livingRoomImage, bedroomImage, wardrobeImage } from "@/assets";
+import {
+  kitchenImage,
+  livingRoomImage,
+  bedroomImage,
+  wardrobeImage,
+} from "@/assets";
 
 type ProjectCategory =
   | "All"
@@ -129,12 +134,24 @@ const Portfolio = () => {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold mb-6">Our Portfolio</h1>
+      <section className="relative overflow-hidden text-primary-foreground py-20">
+        {/* Background Image + Gradient Overlay */}
+        <div className="absolute inset-0">
+          <img
+            src="/assets/Compress-images/team.jpg"
+            className="h-full w-full object-cover"
+            alt=""
+          />
+
+          {/* Gradient Overlay on top of image */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/5 to-black/55"></div>
+        </div>
+
+        <div className="relative container mx-auto px-4 text-center">
+          <h1 className="text-5xl font-bold mb-6" >  Our Porfolio </h1>
           <p className="text-xl max-w-3xl mx-auto opacity-95">
-            Explore our collection of beautifully designed spaces that reflect
-            our commitment to excellence
+            Comprehensive interior design and renovation solutions tailored to
+            your lifestyle and budgets
           </p>
         </div>
       </section>
