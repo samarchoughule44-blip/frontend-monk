@@ -97,6 +97,39 @@ useEffect(() => {
 
 
 
+useEffect(() => {
+  gsap.utils.toArray(".ripple-btn").forEach((btn) => {
+    const circle = document.createElement("span");
+    circle.classList.add("ripple-circle");
+    btn.appendChild(circle);
+
+    const size = btn.offsetWidth * 2;
+    circle.style.width = `${size}px`;
+    circle.style.height = `${size}px`;
+
+    btn.addEventListener("mouseenter", () => {
+      gsap.fromTo(
+        circle,
+        { scale: 0, opacity: 0.6 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power2.out",
+        }
+      );
+    });
+
+    btn.addEventListener("mouseleave", () => {
+      gsap.to(circle, {
+        scale: 0,
+        opacity: 0,
+        duration: 0.4,
+        ease: "power2.inOut",
+      });
+    });
+  });
+}, []);
 
 
   const categories = [
@@ -407,7 +440,7 @@ useEffect(() => {
 
                 <Button
                   type="submit"
-                  className="w-full py-3 text-base md:py-4 md:text-lg rounded-xl"
+                  className="ripple-btn w-full py-3 text-base md:py-4 md:text-lg rounded-xl"
                 >
                   Get Free Consultation
                 </Button>
@@ -784,7 +817,7 @@ useEffect(() => {
                   design philosophy.
                 </p>
                 <div className="text-center">
-                  <Button asChild variant="outline">
+                  <Button className="ripple-btn">
                     <Link to="/about">Know More</Link>
                   </Button>
                 </div>
