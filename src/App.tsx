@@ -14,6 +14,10 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import ImageGallery from "./pages/ImageGallery";
+import Login from "./pages/admin/Login";
+import AddDesign from "./pages/admin/Design-add";
+import EditDesign from "./pages/admin/Design-edit";
+
 
 // ⭐ ADD THIS
 import WhatsAppButton from "./components/WhatsAppButton";
@@ -26,7 +30,7 @@ const AppContent = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {!isGalleryPage && <Navigation />}
-      
+
       <main className={isGalleryPage ? "" : "flex-1"}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -36,6 +40,10 @@ const AppContent = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/admin" element={<Login />} />
+          <Route path="/admin/designs/add" element={<AddDesign />} />
+          <Route path="/admin/designs/edit/:id" element={<EditDesign />} />
+
         </Routes>
       </main>
 
