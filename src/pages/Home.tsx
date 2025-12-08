@@ -1028,14 +1028,15 @@ useEffect(() => {
       <section className="relative py-20  bg-primary text-primary-foreground overflow-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover"
-          src="/assets/video/video.mp4"
           autoPlay
           loop
           muted
           playsInline
-          webkit-playsinline="true"
-          preload="auto"
-        />
+          preload="metadata"
+          poster="/assets/video/poster.jpg"
+        >
+          <source src="/assets/video/video.mp4" type="video/mp4" />
+        </video>
 
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-[#0000]/75"></div>
 
