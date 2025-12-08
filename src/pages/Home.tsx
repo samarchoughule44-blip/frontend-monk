@@ -393,18 +393,20 @@ useEffect(() => {
         </Swiper>
       </section>
       {/* contact form */}
-      <section className=".reveal-stagger py-16 bg-gray-300/40 bg-[url('/assets/bedroom.jpg')] bg-cover bg-center bg-no-repeat">
-        <div className="container mx-auto px-4 flex justify-between">
-          <div className=" max-w-2xl  mx-auto backdrop-blur-sm bg-white/70 p-6 rounded-2xl">
-            <h2 className="reveal text-2xl md:text-4xl font-bold text-center mb-4">
+      <section className="relative py-6 md:py-16 overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${bedroomImage})` }} />
+        <div className="absolute inset-0 bg-amber-50/90" />
+        <div className="container mx-auto px-2 md:px-4 relative z-10">
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-lg md:text-4xl font-bold text-center mb-2 md:mb-4">
               Get Your Free Consultation
             </h2>
-            <p className="text-center text-muted-foreground mb-6 md:mb-8 font-dm-sans px-4">
+            <p className="text-center text-xs md:text-base text-muted-foreground mb-3 md:mb-8 font-dm-sans">
               Fill out the form below and our design experts will get back to
               you within 24 hours
             </p>
 
-            <Card className="p-4 md:p-6">
+            <Card className="p-2 md:p-6">
               <form className="space-y-4 md:space-y-6">
                 <div>
                   <input
