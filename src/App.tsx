@@ -17,6 +17,8 @@ import ImageGallery from "./pages/ImageGallery";
 import Login from "./pages/admin/Login";
 import AddDesign from "./pages/admin/Design-add";
 import EditDesign from "./pages/admin/Design-edit";
+import AdminDashboard from "./pages/admin/AdminDashboard"
+
 
 
 // ⭐ ADD THIS
@@ -47,6 +49,10 @@ const AppContent = () => {
           <Route path="/admin" element={<Login />} />
           <Route path="/admin/designs/add" element={<AddDesign />} />
           <Route path="/admin/designs/edit/:id" element={<EditDesign />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+          
+          
 
         </Routes>
       </main>
