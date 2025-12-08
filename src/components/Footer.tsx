@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
-          <div>
+          <div className="col-span-1 md:col-span-1">
             <div className="flex items-center space-x-2 mb-4">
               
               <span className="text-xl text-white hover:text-orange-300  ">THE DESIGNER <span className="text-white">MONK </span></span>
@@ -31,6 +31,7 @@ const Footer = () => {
             </div>
           </div>
 
+          <div className="col-span-1 md:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-8">
           {/* Quick Links */}
           <div>
             <h3 className="font-semibold mb-4 text-white hover:text-orange-300  transition-colors">Quick Links</h3>
@@ -96,6 +97,7 @@ const Footer = () => {
                 </span>
               </li>
             </ul>
+          </div>
           </div>
         </div>
 
