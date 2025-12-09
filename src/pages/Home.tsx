@@ -985,6 +985,16 @@ useEffect(() => {
               ))}
             </div>
           </div>
+          <div className="flex justify-center gap-2 mt-6 md:hidden">
+            {testimonials.map((_, index) => (
+              <div
+                key={index}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === 0 ? 'bg-primary w-8' : 'bg-gray-300'
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </section>
 

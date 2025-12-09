@@ -17,7 +17,8 @@ import ImageGallery from "./pages/ImageGallery";
 import Login from "./pages/admin/Login";
 import AddDesign from "./pages/admin/Design-add";
 import EditDesign from "./pages/admin/Design-edit";
-import AdminDashboard from "./pages/admin/AdminDashboard"
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import Leads from "./pages/admin/Leads";
 
 
 
@@ -28,6 +29,7 @@ import Chatbot from "./components/Chatbot";
 const AppContent = () => {
   const location = useLocation();
   const isGalleryPage = location.pathname === '/gallery';
+  const isAdminPage = location.pathname.startsWith('/admin');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,9 +37,9 @@ const AppContent = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {!isGalleryPage && <Navigation />}
+      {!isGalleryPage && !isAdminPage && <Navigation />}
 
-      <main className={isGalleryPage ? "" : "flex-1"}>
+      <main className={isGalleryPage || isAdminPage ? "" : "flex-1"}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
@@ -47,9 +49,10 @@ const AppContent = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/admin" element={<Login />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/leads" element={<Leads />} />
           <Route path="/admin/designs/add" element={<AddDesign />} />
           <Route path="/admin/designs/edit/:id" element={<EditDesign />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
           
           
@@ -57,7 +60,7 @@ const AppContent = () => {
         </Routes>
       </main>
 
-      {!isGalleryPage && (
+      {!isGalleryPage && !isAdminPage && (
         <>
           <WhatsAppButton />
           <Chatbot />

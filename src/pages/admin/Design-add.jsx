@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import useAdminGuard from "@/hooks/useAdminGuard";
+import AdminLayout from "@/components/AdminLayout";
 
 export default function AddDesign() {
   useAdminGuard();
@@ -58,8 +59,8 @@ export default function AddDesign() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-start py-10">
-      <div className="bg-white shadow-lg rounded-xl w-full max-w-2xl p-8">
+    <AdminLayout>
+      <div className="bg-white shadow-lg rounded-xl w-full max-w-2xl p-8 mx-auto">
 
         <h1 className="text-3xl font-semibold text-gray-800 mb-6">
           ➕ Add New Project
@@ -150,6 +151,6 @@ export default function AddDesign() {
 
         </form>
       </div>
-    </div>
+    </AdminLayout>
   );
 }
