@@ -627,7 +627,7 @@ useEffect(() => {
                 />
 
                 <span className="absolute bottom-2 left-2 bg-gray-700/80 text-white text-xs px-3 py-1 rounded-md backdrop-blur">
-                  Homes by Livspace
+                  Homes by Monks
                 </span>
               </div>
             </div>

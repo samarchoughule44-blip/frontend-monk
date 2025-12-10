@@ -12,135 +12,29 @@ import {
   X,
 } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
-import {
-  dsc06643,
-  dsc06676,
-  dsc06716,
-  dsc06725,
-  dsc06769,
-  dsc06781,
-} from "@/assets";
 
 const Services = () => {
   const [activeTab, setActiveTab] = useState("delivered");
   const [showPopup, setShowPopup] = useState(false);
   const [visibleProjects, setVisibleProjects] = useState(4);
   const [loading, setLoading] = useState(false);
+  const [projects, setProjects] = useState([]);
 
-  const baseDeliveredProjects = [
-    {
-      id: 1,
-      title:
-        "3BHK Interior Design in Noida with Beige Tufted Sectional Sofa in Living Room",
-      location: "ATS Happy Trails",
-      style: "Contemporary",
-      convenience: "Convenience Max",
-      layout: "Parallel",
-      area: "Sector 76, Noida, UP",
-      image: dsc06643,
-      pricing: "30+",
-      bhk: "3-BHK",
-      scope: "Full Home, Kitchen, Living Room, Dining Room, 3 Bedrooms",
-      propertyType: "Apartment",
-      size: "1000 to 2500 sq ft",
-    },
-    {
-      id: 2,
-      title: "2BHK Modern Kitchen Design with Premium Modular Units",
-      location: "Pune Heights",
-      style: "Modern",
-      convenience: "Smart Storage",
-      layout: "L-Shaped",
-      area: "Shivaji Nagar, Pune",
-      image: dsc06676,
-      pricing: "25+",
-      bhk: "2-BHK",
-      scope: "Kitchen, Living Room, 2 Bedrooms",
-      propertyType: "Apartment",
-      size: "800 to 1200 sq ft",
-    },
-    {
-      id: 3,
-      title: "Master Bedroom Design with Walk-in Wardrobe",
-      location: "Prestige Lakeside",
-      style: "Elegant",
-      convenience: "Luxury Max",
-      layout: "Suite Style",
-      area: "Whitefield, Bangalore",
-      image: dsc06716,
-      pricing: "20+",
-      bhk: "3-BHK",
-      scope: "Master Bedroom, Wardrobe, Bathroom",
-      propertyType: "Apartment",
-      size: "1200 to 1800 sq ft",
-    },
-    {
-      id: 4,
-      title: "Dining Area with Modern Chandelier and Custom Table",
-      location: "Godrej Properties",
-      style: "Sophisticated",
-      convenience: "Premium",
-      layout: "Open Dining",
-      area: "Powai, Mumbai",
-      image: dsc06725,
-      pricing: "15+",
-      bhk: "2-BHK",
-      scope: "Dining Room, Living Extension",
-      propertyType: "Apartment",
-      size: "900 to 1400 sq ft",
-    },
-  ];
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
-  const baseUpcomingProjects = [
-    {
-      id: 5,
-      title: "4BHK Luxury Villa Interior with Premium Finishes",
-      location: "DLF Phase 3",
-      style: "Luxury",
-      convenience: "Premium Max",
-      layout: "Open Plan",
-      area: "Gurgaon, Haryana",
-      image: dsc06769,
-      pricing: "50+",
-      bhk: "4-BHK",
-      scope: "Full Villa, All Rooms, Garden Area",
-      propertyType: "Villa",
-      size: "2500 to 4000 sq ft",
-    },
-    {
-      id: 6,
-      title: "Penthouse Interior with Panoramic City Views",
-      location: "Trump Tower",
-      style: "Ultra Modern",
-      convenience: "Smart Home",
-      layout: "Duplex",
-      area: "Lower Parel, Mumbai",
-      image: dsc06781,
-      pricing: "80+",
-      bhk: "5-BHK",
-      scope: "Full Penthouse, Terrace, Home Theater",
-      propertyType: "Penthouse",
-      size: "4000 to 6000 sq ft",
-    },
-  ];
-
-  // Generate more projects by duplicating and modifying
-  const generateProjects = (baseProjects, count) => {
-    const projects = [];
-    for (let i = 0; i < count; i++) {
-      const baseProject = baseProjects[i % baseProjects.length];
-      projects.push({
-        ...baseProject,
-        id: baseProject.id + i * 100,
-        title: `${baseProject.title} - Project ${i + 1}`,
-        location: `${baseProject.location} ${i + 1}`,
-      });
+  const fetchProjects = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/projects');
+      if (response.ok) {
+        const data = await response.json();
+        setProjects(data);
+      }
+    } catch (error) {
+      console.error('Error fetching projects:', error);
     }
-    return projects;
   };
-
-  const deliveredProjects = generateProjects(baseDeliveredProjects, 20);
-  const upcomingProjects = generateProjects(baseUpcomingProjects, 15);
 
   const loadMoreProjects = useCallback(() => {
     setLoading(true);
@@ -338,16 +232,16 @@ const Services = () => {
 
           {/* Project Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {(activeTab === "delivered" ? deliveredProjects : upcomingProjects)
+            {projects
               .slice(0, visibleProjects)
               .map((project) => (
                 <Card
-                  key={project.id}
+                  key={project._id}
                   className="overflow-hidden bg-white rounded-xl shadow-xl"
                 >
                   <div className="relative h-64">
                     <img
-                      src={project.image}
+                      src={`http://localhost:5000${project.imageUrl}`}
                       alt={project.title}
                       className="w-full h-full object-cover"
                     />
@@ -357,19 +251,19 @@ const Services = () => {
                       {project.title}
                     </h3>
                     <p className="text-lg font-medium text-primary mb-2">
-                      {project.location}
+                      {project.projectName}
                     </p>
                     <div className="grid grid-cols-2 gap-2 text-sm text-muted-foreground mb-4">
                       <span>{project.style}</span>
-                      <span>{project.convenience}</span>
+                      <span>{project.category}</span>
                       <span>{project.layout}</span>
-                      <span>{project.area}</span>
+                      <span>{project.location}</span>
                     </div>
 
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="font-medium">Pricing:</span>
-                        <span>{project.pricing}</span>
+                        <span>{project.pricing} Lakhs</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="font-medium">BHK:</span>
@@ -386,6 +280,10 @@ const Services = () => {
                       <div className="flex justify-between">
                         <span className="font-medium">Size:</span>
                         <span>{project.size}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="font-medium">Price Range:</span>
+                        <span className="text-green-600 font-medium">₹{project.priceMin?.toLocaleString()} - ₹{project.priceMax?.toLocaleString()}</span>
                       </div>
 
                       <Button
@@ -408,16 +306,13 @@ const Services = () => {
           )}
 
           {/* Load More Button (fallback) */}
-          {!loading &&
-            visibleProjects <
-            (activeTab === "delivered" ? deliveredProjects : upcomingProjects)
-              .length && (
-              <div className="flex justify-center mt-8">
-                <Button onClick={loadMoreProjects} variant="outline">
-                  Load More Projects
-                </Button>
-              </div>
-            )}
+          {!loading && visibleProjects < projects.length && (
+            <div className="flex justify-center mt-8">
+              <Button onClick={loadMoreProjects} variant="outline">
+                Load More Projects
+              </Button>
+            </div>
+          )}
         </div>
       </section>
 

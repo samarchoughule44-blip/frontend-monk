@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import useAdminGuard from "@/hooks/useAdminGuard";
 import AdminLayout from "@/components/AdminLayout";
+
+const API_BASE = 'http://localhost:5000/api';
 
 export default function AddDesign() {
   useAdminGuard();
@@ -15,47 +16,38 @@ export default function AddDesign() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  async function uploadImage() {
-    if (!file) return null;
 
-    const ext = file.name.split(".").pop();
-    const path = `designs/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
-
-    const { data, error } = await supabase.storage.from("photos").upload(path, file);
-
-    if (error) {
-      alert("Image upload failed!");
-      return null;
-    }
-
-    const { data: publicData } = supabase.storage.from("photos").getPublicUrl(path);
-    return publicData.publicUrl;
-  }
 
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
 
-    const imageURL = await uploadImage();
+    try {
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('category', category);
+      formData.append('priceMin', priceMin);
+      formData.append('priceMax', priceMax);
+      formData.append('image', file);
 
-    const { error } = await supabase.from("projects").insert([
-      {
-        title,
-        category,
-        pricing: `${priceMin} - ${priceMax}`,
-        thumbnail_url: imageURL,
-      },
-    ]);
+      const response = await fetch(`${API_BASE}/projects`, {
+        method: 'POST',
+        body: formData
+      });
 
-    setLoading(false);
-
-    if (error) {
-      alert("Error adding project");
-      console.log(error);
-      return;
+      if (response.ok) {
+        alert('Project added successfully!');
+        navigate('/admin/projects');
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error || 'Failed to add project'}`);
+      }
+    } catch (error) {
+      console.error('Error adding project:', error);
+      alert('Network error. Make sure backend server is running.');
     }
-
-    navigate("/admin/designs");
+    
+    setLoading(false);
   }
 
   return (
