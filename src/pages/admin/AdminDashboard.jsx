@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useAdminGuard from "@/hooks/useAdminGuard";
-import { supabase } from "@/lib/supabaseClient";
+
 import AdminLayout from "@/components/AdminLayout";
 import { LayoutDashboard } from "lucide-react";
 

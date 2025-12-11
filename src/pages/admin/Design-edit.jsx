@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
+
 import { useParams, useNavigate } from "react-router-dom";
 import useAdminGuard from "@/hooks/useAdminGuard";
 

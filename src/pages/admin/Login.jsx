@@ -23,7 +23,7 @@ export default function AdminLogin() {
 
     try {
       const endpoint = isRegister ? '/register' : '/login';
-      const response = await fetch(`http://localhost:5000/api/auth${endpoint}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
